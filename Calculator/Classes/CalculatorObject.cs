@@ -8,10 +8,11 @@ namespace Calculator.Classes
 {
     public class CalculatorObject
     {
+        //This is a calculator
         public decimal OperandOne { get; set; }
         public decimal OperandTwo { get; set; }
         public OperatorType Operator { get; set; }
-
+        
         public decimal PerformCalculation()
         {
             decimal solution;
