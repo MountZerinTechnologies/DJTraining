@@ -16,22 +16,10 @@ namespace Calculator.Classes
         {
             Console.WriteLine();
             string equation =  Console.ReadLine();
-            //string[] equationSplit = equation.Split();
-            //string[] test = { "+", "-", "*", "/", "^", "s" };
-            //char.TryParse(equation, out char result);
-            //foreach (string x in test)
-            //{
-            //    if (equation.Contains(x))
-            //    {
-            //        char.TryParse(x, out char _operator);
-            //        Console.WriteLine(_operator);
-            //        Console.Read();
-            //    }
-            //}
             return equation;
         }
 
-        public OperatorType GetOperator(string operatorInput)
+        public OperatorType ParseOperator(string operatorInput)
         {
             OperatorType convertType = new OperatorType();
             string[] test = { "+", "-", "*", "/", "^", "s" };
@@ -50,7 +38,8 @@ namespace Calculator.Classes
         {
             //validate input
             char[] testOperators = { '+', '-', '*', '/', '^', 's', '=', 'x' };
-            equation = equation.Replace(" ", "");
+            equation = equation.ToLower().Replace(" ", "");
+            string squareRootPlacement = "s";
             
             
             string[] numberValues = equation.Split(testOperators);
@@ -59,8 +48,24 @@ namespace Calculator.Classes
             //    ParseDecimalFromInput(x);
             //}
 
-            FirstNumber = ParseDecimalFromInput(numberValues[0]);
-            SecondNumber = ParseDecimalFromInput(numberValues[1]);
+            //Protection for if user inputs s before initial number or after, 
+            // as well as not attempting to parse and assign SecondNumber if SquareRoot function is used
+            if (ParseOperator(equation) != OperatorType.SquareRoot)
+            {
+                FirstNumber = ParseDecimalFromInput(numberValues[0]);
+                SecondNumber = ParseDecimalFromInput(numberValues[1]);
+            }
+            else if (ParseOperator(equation) == OperatorType.SquareRoot)
+            {
+                if (equation.IndexOf(squareRootPlacement) == 0)
+                {
+                    FirstNumber = ParseDecimalFromInput(numberValues[1]);
+                }
+                else
+                { 
+                    FirstNumber = ParseDecimalFromInput(numberValues[0]);
+                }
+            }
             //string equals = "=";
             //string numberString = "";
             //foreach (string x in testOperators)

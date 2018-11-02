@@ -22,6 +22,8 @@ namespace Calculator.Classes
                     return "/";
                 case OperatorType.SquareRoot:
                     return "The Square Root of ";
+                case OperatorType.Exponent:
+                    return "^";
                 default:
                     throw new Exception("Unrecognized type: " + type.ToString());
             }
@@ -43,6 +45,8 @@ namespace Calculator.Classes
                     return OperatorType.SquareRoot;
                 case 'S':
                     return OperatorType.SquareRoot;
+                case '^':
+                    return OperatorType.Exponent;
                 default:
                     throw new Exception("Unrecognized type: " + type.ToString());
             }

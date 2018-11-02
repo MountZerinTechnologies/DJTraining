@@ -41,6 +41,10 @@ namespace Calculator.Classes.Tests
         }
 
         [DataRow("2.3 f 12.7", 2.3, 12.7)]
+        [DataRow("s32", 32)]
+        [DataRow("32s", 32)]
+        [DataRow("32 s", 32)]
+        [DataRow("32 s ", 32)]
         public void ParseOperandsFromEquationTestThrowsError(string equation)
         {
             userInputTarget = new UserInput();
@@ -53,6 +57,29 @@ namespace Calculator.Classes.Tests
                     () => userInputTarget.ParseOperandsFromEquation(equation),
                     "I should halve had an error"
                 );
+        }
+
+        [DataRow("s 32", OperatorType.SquareRoot)]
+        [DataRow("32 ^ 32", OperatorType.SquareRoot)]
+        [DataRow("32 + 32", OperatorType.SquareRoot)]
+        [DataRow("32 - 32", OperatorType.SquareRoot)]
+        [DataRow("2 / 32", OperatorType.SquareRoot)]
+        [DataRow("2 * 32", OperatorType.SquareRoot)]
+        [DataRow(" s 32", OperatorType.SquareRoot)]
+        [DataRow(" s32", OperatorType.SquareRoot)]
+        [DataRow("s32", OperatorType.SquareRoot)]
+        [DataRow("s32 ", OperatorType.SquareRoot)]
+        public void ParseOperatorTest(string equation, object expectedOperator)
+        {
+            userInputTarget = new UserInput();
+            
+
+            userInputTarget.ParseOperator(equation);
+            OperatorType actualOperatorType = OperatorType.SquareRoot;
+
+
+            Assert.AreEqual(Convert.ToDecimal(expectedOperator), actualOperatorType, "operator was not parsed correctly");
+            //Assert.AreEqual(Convert.ToDecimal(expectedOperandTwo), actualOperandTwo, "second operand was not parsed correctly");
         }
     }
 }
