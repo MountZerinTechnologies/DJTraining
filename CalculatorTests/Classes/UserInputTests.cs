@@ -40,17 +40,13 @@ namespace Calculator.Classes.Tests
             Assert.AreEqual(Convert.ToDecimal(expectedOperandTwo), actualOperandTwo, "second operand was not parsed correctly");
         }
 
-        [DataRow("2.3 f 12.7", 2.3, 12.7)]
-        [DataRow("s32", 32)]
-        [DataRow("32s", 32)]
-        [DataRow("32 s", 32)]
-        [DataRow("32 s ", 32)]
+        [TestMethod()]
+        [DataRow("2.3 f 12.7")]
         public void ParseOperandsFromEquationTestThrowsError(string equation)
         {
             userInputTarget = new UserInput();
 
 
-            
 
             Assert.ThrowsException<Exception>
                 (
@@ -59,26 +55,26 @@ namespace Calculator.Classes.Tests
                 );
         }
 
+        [TestMethod()]
         [DataRow("s 32", OperatorType.SquareRoot)]
-        [DataRow("32 ^ 32", OperatorType.SquareRoot)]
-        [DataRow("32 + 32", OperatorType.SquareRoot)]
-        [DataRow("32 - 32", OperatorType.SquareRoot)]
-        [DataRow("2 / 32", OperatorType.SquareRoot)]
-        [DataRow("2 * 32", OperatorType.SquareRoot)]
+        [DataRow("32 ^ 32", OperatorType.Exponent)]
+        [DataRow("32 + 32", OperatorType.Plus)]
+        [DataRow("32 - 32", OperatorType.Minus)]
+        [DataRow("2 / 32", OperatorType.DividedBy)]
+        [DataRow("2 * 32", OperatorType.Times)]
         [DataRow(" s 32", OperatorType.SquareRoot)]
         [DataRow(" s32", OperatorType.SquareRoot)]
         [DataRow("s32", OperatorType.SquareRoot)]
         [DataRow("s32 ", OperatorType.SquareRoot)]
-        public void ParseOperatorTest(string equation, object expectedOperator)
+        public void ParseOperatorTest(string equation, object expectedOperatorType)
         {
             userInputTarget = new UserInput();
             
+            
+            OperatorType actualOperatorType = userInputTarget.ParseOperator(equation);
 
-            userInputTarget.ParseOperator(equation);
-            OperatorType actualOperatorType = OperatorType.SquareRoot;
 
-
-            Assert.AreEqual(Convert.ToDecimal(expectedOperator), actualOperatorType, "operator was not parsed correctly");
+            Assert.AreEqual(expectedOperatorType, actualOperatorType, "operator was not parsed correctly");
             //Assert.AreEqual(Convert.ToDecimal(expectedOperandTwo), actualOperandTwo, "second operand was not parsed correctly");
         }
     }

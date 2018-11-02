@@ -29,6 +29,7 @@ namespace Calculator.Classes
                 {
                     char.TryParse(x, out char _operator);
                     convertType = OperatorTypeExtensions.ConvertOperator(_operator);
+                    return convertType;
                 }
             }
             return convertType;
@@ -111,7 +112,7 @@ namespace Calculator.Classes
             {
                 return number;
             }
-            throw new Exception("Bad number " + numberString);
+            throw new Exception("Bad input " + numberString);
         }
 
         public decimal GetNumber(string whichNumber, OperatorType type)
