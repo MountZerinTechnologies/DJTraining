@@ -37,13 +37,13 @@ namespace Calculator.Classes
             }
             else if (this.Operator == OperatorType.Exponent)
             {
-                solution = (decimal)Math.Pow((double)OperandOne, (double)OperandTwo);
-                //decimal i = 0;
-                //solution = OperandOne * OperandOne;
-                //while (i < OperandTwo)
-                //{
-                //    solution = solution * OperandOne;
-                //}
+                //solution = (decimal)Math.Pow((double)OperandOne, (double)OperandTwo);
+                solution = OperandOne;
+                for (int i = 1; i < OperandTwo; i++)
+                {
+                    Func<decimal, decimal, decimal> square = (x, y) => x * y;
+                    solution = square(OperandOne, solution);
+                }
             }
             else
             {

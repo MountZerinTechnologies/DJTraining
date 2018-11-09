@@ -75,7 +75,6 @@ namespace Calculator.Classes.Tests
 
 
             Assert.AreEqual(expectedOperatorType, actualOperatorType, "operator was not parsed correctly");
-            //Assert.AreEqual(Convert.ToDecimal(expectedOperandTwo), actualOperandTwo, "second operand was not parsed correctly");
         }
     }
 }
