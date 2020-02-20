@@ -40,19 +40,41 @@ namespace Calculator.Classes.Tests
             Assert.AreEqual(Convert.ToDecimal(expectedOperandTwo), actualOperandTwo, "second operand was not parsed correctly");
         }
 
-        [DataRow("2.3 f 12.7", 2.3, 12.7)]
+        [TestMethod()]
+        [DataRow("2.3 f 12.7")]
         public void ParseOperandsFromEquationTestThrowsError(string equation)
         {
             userInputTarget = new UserInput();
 
 
-            
 
             Assert.ThrowsException<Exception>
                 (
                     () => userInputTarget.ParseOperandsFromEquation(equation),
                     "I should halve had an error"
                 );
+        }
+
+        [TestMethod()]
+        [DataRow("s 32", OperatorType.SquareRoot)]
+        [DataRow("32 ^ 32", OperatorType.Exponent)]
+        [DataRow("32 + 32", OperatorType.Plus)]
+        [DataRow("32 - 32", OperatorType.Minus)]
+        [DataRow("2 / 32", OperatorType.DividedBy)]
+        [DataRow("2 * 32", OperatorType.Times)]
+        [DataRow(" s 32", OperatorType.SquareRoot)]
+        [DataRow(" s32", OperatorType.SquareRoot)]
+        [DataRow("s32", OperatorType.SquareRoot)]
+        [DataRow("s32 ", OperatorType.SquareRoot)]
+        public void ParseOperatorTest(string equation, object expectedOperatorType)
+        {
+            userInputTarget = new UserInput();
+            
+            
+            OperatorType actualOperatorType = userInputTarget.ParseOperator(equation);
+
+
+            Assert.AreEqual(expectedOperatorType, actualOperatorType, "operator was not parsed correctly");
         }
     }
 }
